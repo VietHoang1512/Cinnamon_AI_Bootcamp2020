@@ -12,11 +12,13 @@
   - Remove noisy characters
   - Lower case and lematize
 - Implement Glove and Skip-gram models
-- Visualize the the embedded words using either Tensorboard
+- Visualize the the embedded words using  Tensorboard
 
+2/ Questions:
+- How does each method take into account the context of each word?
+- What property of those mathematical models?
+- What are the key distinction between the 2 models: Skip gram and Glove?
 
-
-
-• How does each method take into account the context of each word?
-• What property of those mathematical models?
-• What are the key distinction between the 2 models: Skip gram and Glove?
+3/ Mentor's extra questions:
+- How BPTT work?
+- The problem of gradient descent in RNN?
