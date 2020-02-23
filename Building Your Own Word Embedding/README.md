@@ -91,10 +91,75 @@ The number of “contexts” is of course large, since it is essentially combina
 ### 3/ Mentor's extra questions:
 3.1/ How Back propagation through time work?
 
+#### There are 2 main phases in training a vanilla recurrent neural network:
+- Feed forward
+<p align="center">
+  <img width="450" height="300" src="https://user-images.githubusercontent.com/52401767/75105954-e3a50480-564b-11ea-9111-25375cd4a0f7.png">
+</p>
+
+<p align="center"> 
+  <em>Figure 5. Feed forward phase</em>
+</p>
+
+where:
+
+  Training data is a corpus of text which is a sequence of words <img src="http://www.sciweavers.org/tex2img.php?eq=x_1%2C%20x_2%2C%20...%2C%20x_n&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0"  border="0" alt="x_1, x_2, ..., x_n" width="104" height="15" />
+  
+   Feed into RNN-LM; compute output distribution for every step t.
+   
+   Loss function on step t is cross-entropy between predicted probability
+   
+   Average this to get overall loss for entire training set: 
+
+<img src="https://user-images.githubusercontent.com/52401767/75106343-32ec3480-564e-11ea-86eb-1f356a13080f.png" align="center"  width="300" height="60" />
+
+-  Backward phase
+
+<p align="center">
+  <img width="450" height="300" src="https://user-images.githubusercontent.com/52401767/75106506-00433b80-5650-11ea-9398-603b9c8cdaea.png">
+</p>
+
+<p align="center"> 
+  <em>Figure 6. Back propagation</em>
+</p>
+
+
 3.2/ The problem of gradient descent in RNN?
 
-### 4/ References:
+#### Like the case of mentor's first question, there also exist 2 problems training the RNN:
 
+- Vanishing gradient descent
+
+<p align="center">
+  <img width="450" height="300" src="https://user-images.githubusercontent.com/52401767/75106635-3fbe5780-5651-11ea-9096-817078448253.png">
+</p>
+
+<p align="center"> 
+  <em>Figure 7. Vanishing gradient descent</em>
+</p>
+
+- Exploding gradient descent
+
+Conversely, when these figures are large, the gradient get larger and larger as it backpropagate futher
+
+#### Proof:
+
+We already have <img src="https://user-images.githubusercontent.com/52401767/75109202-d12ec900-5653-11ea-8a9d-9094a06d9b30.png" align="center"  width="300" height="60" /> (the current hidden state is a function of the previous one) (*)
+
+
+On the other hand, performing eigendecomposition on the right hand side matrix, we receive the eigenvalues **λ1,λ2,⋯,λn**
+where **|λ1|>|λ2|>⋯>|λn|**
+
+(*) implies that subsequent time steps, will result in scaling the change with a factor equivalent to **λi**.
+
+So we have the sequence **λ1iΔh1, λ2iΔh2, ... λniΔhn**:
+
+- if **λ1>1** it will cause the gradient exploding
+- and **λ1<1** will  potentially cause the gradient vanishing
+
+
+
+### 4/ References:
 
 [1] [Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/pdf/1301.3781.pdf)
 
@@ -106,3 +171,6 @@ The number of “contexts” is of course large, since it is essentially combina
 
 [5] [Word Embeddings: Explaining their properties](https://www.offconvex.org/2016/02/14/word-embeddings-2/)
 
+[6] [CS224n: Natural Language Processing with Deep Learning](http://web.stanford.edu/class/cs224n/)
+
+[7] [Vanishing And Exploding Gradient Problems](https://www.jefkine.com/general/2018/05/21/2018-05-21-vanishing-and-exploding-gradient-problems/)
