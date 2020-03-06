@@ -1,0 +1,6 @@
+tensorflow==2.1.0
+re
+numpy
+pickle
+flask==1.1.0
+gunicorn==19.9.0
